@@ -133,6 +133,7 @@ marquee {
     font-weight: bold;
     font-size: 11px;
     margin-right: 6px;
+    margin-left: 5px;
     cursor: pointer;
 
     &:active {
@@ -188,6 +189,7 @@ marquee {
   .taskbar-right {
     display: flex;
     align-items: center;
+    margin-right: 5px;
   }
 
   .taskbar-time {

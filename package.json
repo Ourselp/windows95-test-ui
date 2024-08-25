@@ -1,7 +1,7 @@
 {
   "name": "cv-90s",
   "version": "0.1.0",
-  "homepage": "https://gitname.github.io/philippe-oursel-windows95-ui",
+  "homepage": "https://ourselp.github.io/philippe-oursel-windows95-ui",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

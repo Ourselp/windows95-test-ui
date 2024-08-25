@@ -1,0 +1,199 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  background-color: #008080;
+  color: #000000;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.draggable-window {
+  position: absolute;
+  z-index: 1000;
+}
+
+.title-bar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  padding: 3px 2px 3px 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-bar-text {
+  color: white;
+  font-weight: bold;
+}
+
+.title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  border: none;
+  background-color: #c0c0c0;
+  margin-left: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
+  color: #000000;
+}
+
+.title-bar-controls button:active {
+  border: 1px solid #404040;
+  border-bottom-color: #ffffff;
+  border-right-color: #ffffff;
+}
+
+.window-body {
+  margin: 8px;
+  color: black;
+}
+
+h1 {
+  color: #000080;
+}
+
+marquee {
+  background-color: #ffff00;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Digital';
+  src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot');
+  src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix') format('embedded-opentype'),
+       url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2') format('woff2'),
+       url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff') format('woff'),
+       url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf') format('truetype'),
+       url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7') format('svg');
+}
+
+.Main {
+  position: relative;
+  z-index: 10;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+
+  .desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    img {
+      width: 64px;
+      height: 64px;
+    }
+
+    span {
+      font-size: 14px;
+      text-align: center;
+      color: white;
+      text-shadow: 1px 1px 1px black;
+      width: 84px;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.taskbar {
+  &.win95 {
+    display: flex;
+    align-items: center;
+    background-color: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    padding: 2px;
+    height: 28px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .start-button {
+    display: flex;
+    align-items: center;
+    background-color: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 6px;
+    font-weight: bold;
+    font-size: 11px;
+    margin-right: 6px;
+    cursor: pointer;
+
+    &:active {
+      border-style: inset;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+
+  .taskbar-divider {
+    width: 1px;
+    height: 22px;
+    background-color: #808080;
+    margin: 0 6px;
+  }
+
+  .taskbar-items {
+    display: flex;
+    flex-grow: 1;
+    cursor: pointer;
+  }
+
+  .taskbar-item {
+    display: flex;
+    align-items: center;
+    background-color: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 2px 6px;
+    margin-right: 4px;
+    font-size: 11px;
+    min-width: 100px;
+
+    &:hover {
+      background-color: #d4d0c8;
+    }
+
+    &.active {
+      border-style: inset;
+      background-color: #d4d0c8;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+
+  .taskbar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .taskbar-time {
+    background-color: #c0c0c0;
+    border: 2px inset #ffffff;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+}

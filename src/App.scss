@@ -82,11 +82,16 @@ marquee {
   z-index: 10;
 }
 
+.desktop {
+  height: 100%;
+}
+
 .desktop-icons {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
+  height: 100%;
 
   .desktop-icon {
     display: flex;

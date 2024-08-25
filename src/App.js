@@ -14,14 +14,18 @@ function App() {
     <div className="App">
       <div className="desktop">
         <div className="desktop-icons">
-          <div className="desktop-icon">
-            <img src={computerIcon} alt="My Computer" />
-            <span>My Computer</span>
-          </div>
-          <div className="desktop-icon">
-            <img src={recycleIcon} alt="Recycle Bin" />
-            <span>Recycle Bin</span>
-          </div>
+          <Draggable bounds="parent">
+            <div className="desktop-icon">
+              <img src={computerIcon} alt="My Computer" />
+              <span>My Computer</span>
+            </div>
+          </Draggable>
+          <Draggable bounds="parent">
+            <div className="desktop-icon">
+              <img src={recycleIcon} alt="Recycle Bin" />
+              <span>Recycle Bin</span>
+            </div>
+          </Draggable>
         </div>
       </div>
 

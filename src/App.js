@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import './App.scss';
 import Main from './components/Main';
@@ -10,6 +10,28 @@ import folderIcon from './assets/folder.png';
 import minesweeperIcon from './assets/minesweeper.png';
 
 function App() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isBlinking, setIsBlinking] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+      setIsBlinking(prev => !prev);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date) => {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return (
+      <>
+        {hours}<span className={isBlinking ? 'blink' : ''}>:</span>{minutes}
+      </>
+    );
+  };
+
   return (
     <div className="App">
       <div className="desktop">
@@ -67,7 +89,7 @@ function App() {
         </div>
         <div className="taskbar-right">
           <div className="taskbar-time">
-            {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+            {formatTime(currentTime)}
           </div>
         </div>
       </div>

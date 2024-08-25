@@ -58,7 +58,7 @@ function App() {
           </div>
           <div className="taskbar-item">
             <img src={minesweeperIcon} alt="Minesweeper" />
-            <span>Minesweeper</span>
+            <span>Démineur</span>
           </div>
         </div>
         <div className="taskbar-right">

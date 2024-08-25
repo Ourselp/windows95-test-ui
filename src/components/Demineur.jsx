@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowMinimize, faWindowMaximize, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../styles/demineur.scss';
@@ -11,6 +11,8 @@ const Demineur = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [gameOverCell, setGameOverCell] = useState(null);
   const [hasWon, setHasWon] = useState(false);
+  const [flaggedCells, setFlaggedCells] = useState(0);
+  const timerRef = useRef(null);
 
   const initializeGrid = () => {
     const newGrid = [];
@@ -20,7 +22,8 @@ const Demineur = () => {
         row.push({
           isMine: Math.random() < 0.15, // 15% de chance d'être une mine
           isRevealed: false,
-          neighborMines: 0
+          neighborMines: 0,
+          isFlagged: false
         });
       }
       newGrid.push(row);
@@ -52,16 +55,26 @@ const Demineur = () => {
     setGrid(newGrid);
     setGameOver(false);
     setGameOverCell(null);
+    setHasWon(false);
     setTime(0);
+    setFlaggedCells(0);
+    // Arrêter le timer existant s'il y en a un
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    // Démarrer un nouveau timer
+    timerRef.current = setInterval(() => {
+      setTime(prevTime => prevTime + 1);
+    }, 1000);
   };
 
   useEffect(() => {
     initializeGrid();
-    // Démarrer le chronomètre
-    const timer = setInterval(() => {
-      setTime(prevTime => prevTime + 1);
-    }, 1000);
-    return () => clearInterval(timer);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
 
   const checkWinCondition = (grid) => {
@@ -71,6 +84,10 @@ const Demineur = () => {
     if (allNonMinesRevealed) {
       setHasWon(true);
       setGameOver(true);
+      // Arrêter le timer
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
       // Révéler toutes les mines avec des drapeaux
       const newGrid = grid.map(row =>
         row.map(cell => cell.isMine ? { ...cell, isRevealed: true, isFlagged: true } : cell)
@@ -80,7 +97,7 @@ const Demineur = () => {
   };
 
   const handleCellClick = (row, col) => {
-    if (gameOver || grid[row][col].isRevealed) return;
+    if (gameOver || grid[row][col].isRevealed || grid[row][col].isFlagged) return;
 
     const newGrid = [...grid];
     if (newGrid[row][col].isMine) {
@@ -94,6 +111,24 @@ const Demineur = () => {
       revealCell(newGrid, row, col);
       checkWinCondition(newGrid);
     }
+    setGrid(newGrid);
+  };
+
+  const handleRightClick = (e, row, col) => {
+    e.preventDefault();
+    if (gameOver || grid[row][col].isRevealed) return;
+
+    const newGrid = [...grid];
+    const cell = newGrid[row][col];
+
+    if (cell.isFlagged) {
+      cell.isFlagged = false;
+      setFlaggedCells(prev => prev - 1);
+    } else if (flaggedCells < mineCount) {
+      cell.isFlagged = true;
+      setFlaggedCells(prev => prev + 1);
+    }
+
     setGrid(newGrid);
   };
 
@@ -126,7 +161,7 @@ const Demineur = () => {
       </div>
       <div className="window-body">
         <div className="demineur-header">
-          <div className="mine-counter retro-display">{mineCount.toString().padStart(3, '0')}</div>
+          <div className="mine-counter retro-display">{(mineCount - flaggedCells).toString().padStart(3, '0')}</div>
           <button 
             className={`smiley ${gameOver ? (hasWon ? 'won' : 'dead') : isClicking ? 'oh' : ''}`}
             onClick={initializeGrid}
@@ -143,14 +178,15 @@ const Demineur = () => {
                   key={colIndex}
                   className={`demineur-cell ${cell.isRevealed ? 'revealed' : ''} ${
                     gameOver && gameOverCell && gameOverCell.row === rowIndex && gameOverCell.col === colIndex ? 'game-over-cell' : ''
-                  } ${cell.isRevealed && !cell.isMine ? `number-${cell.neighborMines}` : ''}`}
+                  } ${cell.isRevealed && !cell.isMine ? `number-${cell.neighborMines}` : ''} ${cell.isFlagged ? 'flagged' : ''}`}
                   onClick={() => handleCellClick(rowIndex, colIndex)}
+                  onContextMenu={(e) => handleRightClick(e, rowIndex, colIndex)}
                   disabled={gameOver}
                 >
-                  {cell.isRevealed && (
-                    cell.isMine ? (cell.isFlagged ? '🚩' : '💣') : 
+                  {cell.isRevealed ? (
+                    cell.isMine ? '💣' : 
                     cell.neighborMines > 0 ? cell.neighborMines : ''
-                  )}
+                  ) : cell.isFlagged ? '🚩' : ''}
                 </button>
               ))}
             </div>

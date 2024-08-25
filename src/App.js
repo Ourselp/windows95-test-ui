@@ -2,7 +2,7 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import './App.scss';
 import Main from './components/Main';
-import Demineur from './components/Demineur';
+import Demineur from './components/Minesweeper';
 import computerIcon from './assets/computer.png';
 import recycleIcon from './assets/recycle-bin.png';
 import startIcon from './assets/start.png';
@@ -15,7 +15,7 @@ function App() {
       <div className="desktop">
         <div className="desktop-icons">
           <div className="desktop-icon">
-            <img src={computerIcon} alt="My Computedr" />
+            <img src={computerIcon} alt="My Computer" />
             <span>My Computer</span>
           </div>
           <div className="desktop-icon">
@@ -36,7 +36,7 @@ function App() {
       </Draggable>
       
       <Draggable
-        handle=".demineur-title-bar"
+        handle=".minesweeper-title-bar"
         defaultPosition={{ x: 850, y: 350 }}
         bounds="parent"
       >
@@ -58,7 +58,7 @@ function App() {
           </div>
           <div className="taskbar-item">
             <img src={minesweeperIcon} alt="Minesweeper" />
-            <span>Démineur</span>
+            <span>Minesweeper</span>
           </div>
         </div>
         <div className="taskbar-right">

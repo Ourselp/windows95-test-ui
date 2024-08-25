@@ -18,17 +18,17 @@ const Main = () => {
       </div>
       <div className="window-body">
         <div className="address-bar">
-          <span>Compétences (C:)</span>
+          <span>Skills (C:)</span>
         </div>
         <div className="content-wrapper">
           <div className="navigation-pane">
             <div className="folder-item">
               <FontAwesomeIcon icon={faFolder} />
-              <span>Compétences</span>
+              <span>Skills</span>
             </div>
             <div className="folder-item">
               <FontAwesomeIcon icon={faFolder} />
-              <span>Projets</span>
+              <span>Projects</span>
             </div>
           </div>
           <div className="content">
@@ -56,7 +56,7 @@ const Main = () => {
         </div>
       </div>
       <div className="status-bar">
-        <div className="status-bar-field">5 objets</div>
+        <div className="status-bar-field">5 objects</div>
         <div className="status-bar-field">Software Engineer</div>
       </div>
     </div>

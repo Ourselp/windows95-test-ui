@@ -1,4 +1,4 @@
-.demineur-window {
+.minesweeper-window {
   width: fit-content;
 }
 
@@ -7,17 +7,17 @@
   background-color: #c0c0c0;
 }
 
-.demineur-grid {
+.minesweeper-grid {
   display: inline-block;
   border: 3px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
 }
 
-.demineur-row {
+.minesweeper-row {
   display: flex;
 }
 
-.demineur-cell {
+.minesweeper-cell {
   width: 20px;
   height: 20px;
   border: 2px solid;
@@ -52,7 +52,7 @@
   &.number-4 { color: darkblue; }
 }
 
-.demineur-header {
+.minesweeper-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
